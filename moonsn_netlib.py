@@ -5,23 +5,28 @@ import threading
 
 # 获取本机IP
 myIP = gethostbyname(gethostname())
-PORT = 50005
+PORT = 50000
 
 class Server(threading.Thread):
 
-    def __init__(self):
+    def __init__(self, port, fun):
         threading.Thread.__init__(self)
-        self.ADDR = ('', 50005)
+        self.ADDR = ('', port)
         self.sock = socket(AF_INET, SOCK_DGRAM) # SOCK_DGRAM 是指报文格式传输(UDP)
         self.sock.bind(self.ADDR)
-        self.thStop = True
+        self.thStop = False
+        self.fun = fun
+        print "listenAt: ", self.ADDR
 
     def __del__(self):
         self.sock.close()
 
     def transMsg(self):
+        print "waiting..."
         (data, curAddr) = self.sock.recvfrom(1024)
-        print '< ' + data
+        print "recved someing"
+        print data
+        self.fun(data)
 
     def run(self):
         while not self.thStop:
@@ -32,17 +37,19 @@ class Server(threading.Thread):
 
 class Client(threading.Thread):
 
-        def __init__(self, ip):
-           threading.Thread.__init__(self)
-           self.ADDR = (ip, 50005)
-           self.sock = socket(AF_INET, SOCK_DGRAM)
-           self.thStop = False
+        def __init__(self, ip, port):
+            threading.Thread.__init__(self)
+            self.ADDR = (ip, port)
+            self.sock = socket(AF_INET, SOCK_DGRAM)
+            self.thStop = False
+            print "sendTo:", self.ADDR
+
 
         def __del__(self):
             self.sock.close()
 
         def sendMsg(self,msg):
-            self.sock.sendto(gethostname() + ": " + msg, self.ADDR)
+            self.sock.sendto(msg, self.ADDR)
 
         def run(self):
             while not self.thStop:
@@ -50,7 +57,7 @@ class Client(threading.Thread):
                 if not msg.strip():
                     continue
                 print "> " + msg
-                self.sendMsg()
+                self.sendMsg(msg)
 
         def stop(self):
             self.sock.close()

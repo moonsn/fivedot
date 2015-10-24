@@ -4,13 +4,19 @@ class Mp:
     # mmap :
     #       0 is None
     mmap = []
-    max_row = 16
-    max_col = 20
 
     #create the mmap
-    def __init__(self):
-        for i in range(0, 17):
-            a = [0 for x in range(0, 19)]
+    def __init__(self, row, col):
+        self.max_row = row
+        self.max_col = col
+        for i in range(0, row):
+            a = [0 for x in range(0, col)]
+            self.mmap.append(a)
+
+    def reset(self):
+        self.mmap = []
+        for i in range(0, self.max_row):
+            a = [0 for x in range(0, self.max_col)]
             self.mmap.append(a)
 
     def setPos(self, row, col, color):
@@ -23,13 +29,16 @@ class Mp:
         self.mmap[row][col] = color
         #self.print_map()
 
+    def isEmpty(self, row, col):
+        return True if self.mmap[row][col] == 0 else False
+
     def print_map(self):
-        for i in range(0, 17):
+        for i in range(0, self.max_row):
             print self.mmap[i]
 
     def check(self):
-        for i in range(0, 17):
-            for j in range(0, 19):
+        for i in range(0, self.max_row):
+            for j in range(0, self.max_col):
                 # 没有棋子
                 if self.mmap[i][j] == 0:
                     continue
@@ -44,15 +53,15 @@ class Mp:
     def check_row(self, x, y):
         cnt = 0
         for j in range(y+1, y+5):
-            if j > self.max_col:
-               break;
+            if j >= self.max_col:
+               break
             if self.mmap[x][j] == self.mmap[x][y]:
                 cnt = cnt + 1
             else:
                 break
         for j in range(y-1, y-5, -1):
-            if j <= 0:
-                break;
+            if j < 0:
+                break
             if self.mmap[x][j] == self.mmap[x][y]:
                 cnt = cnt + 1
             else:
@@ -62,14 +71,14 @@ class Mp:
     def check_col(self, x, y):
         cnt = 0
         for i in range(x+1, x+5):
-            if i > self.max_row:
+            if i >= self.max_row:
                 break
             if self.mmap[i][y] == self.mmap[x][y]:
                 cnt = cnt + 1
             else:
                 break
         for i in range(x-1, x-5, -1):
-            if i <= 0:
+            if i < 0:
                 break
             if self.mmap[i][y] == self.mmap[x][y]:
                 cnt = cnt + 1
@@ -80,14 +89,14 @@ class Mp:
     def check_x1(self, x, y):
         cnt = 0
         for i in range(1, 5):
-            if x - i <= 0 or y - i <= 0:
+            if x - i < 0 or y - i < 0:
                 break
             if self.mmap[x-i][y-i] == self.mmap[x][y]:
                 cnt = cnt + 1
             else:
                 break
         for i in range(1, 5):
-            if x + i > self.max_row or y + i > self.max_col:
+            if x + i >= self.max_row or y + i >= self.max_col:
                 break
             if self.mmap[x+i][y+i] == self.mmap[x][y]:
                 cnt = cnt + 1
@@ -98,14 +107,14 @@ class Mp:
     def check_x2(self, x, y):
         cnt = 0
         for i in range(1, 5):
-            if x - i <= 0 or y + i > self.max_col:
+            if x - i < 0 or y + i >= self.max_col:
                 break
             if self.mmap[x-i][y+i] == self.mmap[x][y]:
                 cnt = cnt + 1
             else:
                 break
         for i in range(1, 5):
-            if x + i > self.max_row or y - i < 0:
+            if x + i >= self.max_row or y - i < 0:
                 break
             if self.mmap[x+i][y-i] == self.mmap[x][y]:
                 cnt = cnt + 1

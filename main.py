@@ -1,8 +1,10 @@
 # coding=utf-8
 __author__ = 'moons'
 import Tkinter as tk
+import tkMessageBox as mb
 import socket
 import fivemap
+import moonsn_netlib
 
 mp = fivemap.Mp()
 myIP = socket.gethostname()
@@ -67,8 +69,12 @@ def up_bound(x, y):
     res = mp.check()
     if res != None:
         print "%s win !!!!!!!!!!!!!!!!" % NOW_COLOR
+        win(NOW_COLOR)
 
 
+def win(color):
+    global w
+    mb.showinfo("game end", "%s win the game!" % (color))
 
 
 def doit(event):

@@ -134,8 +134,8 @@ def draw_other(self, str):
     str = json.loads(str)
     row = str[0]['row']
     col = str[0]['col']
-    self.draw_dot((col + 1)*30, (row + 1)*30)
-    self.mp.setPos(row, col, NOW_COLOR)
+    self.draw_dot((col)*30, (row)*30)
+    self.mp.setPos(row-1, col-1, NOW_COLOR)
 
     res = self.mp.check()
     if res != None:

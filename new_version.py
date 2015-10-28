@@ -7,7 +7,7 @@ import json
 
 listen_PORT = 50000
 sendto_PORT = 50000
-sendto_IP = '192.168.1.121'
+sendto_IP = '192.168.1.149'
 MY_COLOR = None
 COLOR_B = "#34495E"
 COLOR_W = "#D4E6F1"
@@ -120,13 +120,15 @@ class Application(tk.Frame):
             print "%s win !!!!!!!!!!!!!!!!" % NOW_COLOR
             #self.draw_win(NOW_COLOR)
 
+app = None
 # for network
-ser = moonsn_netlib.Server(listen_PORT, Application.draw_other)
+ser = moonsn_netlib.Server(listen_PORT, app.draw_other)
 ser.start()
 cli = moonsn_netlib.Client(sendto_IP,sendto_PORT)
 cli.start()
 
 def main():
+    global app
     root = tk.Tk()
     root.geometry("%sx%s+300+300" % (MAIN_WIDTH, MAIN_HEIGHT))
     app = Application(root)

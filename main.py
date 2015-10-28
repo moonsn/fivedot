@@ -7,6 +7,10 @@ import json
 
 listen_PORT = 50000
 sendto_PORT = 50000
+#if you want run the test.py & main.py at the same time.
+#or you want play it in only one window
+#change it to 50001, it listen_PORT in the test.py file
+
 sendto_IP = '127.0.0.1'
 MY_COLOR = None
 COLOR_B = "#17202A"

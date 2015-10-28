@@ -122,16 +122,16 @@ class Application(tk.Frame):
 
 app = None
 # for network
-ser = moonsn_netlib.Server(listen_PORT, app.draw_other)
-ser.start()
-cli = moonsn_netlib.Client(sendto_IP,sendto_PORT)
-cli.start()
 
 def main():
     global app
     root = tk.Tk()
     root.geometry("%sx%s+300+300" % (MAIN_WIDTH, MAIN_HEIGHT))
     app = Application(root)
+    ser = moonsn_netlib.Server(listen_PORT, app.draw_other)
+    ser.start()
+    cli = moonsn_netlib.Client(sendto_IP,sendto_PORT)
+    cli.start()
     root.mainloop()
 
 if __name__ == "__main__":

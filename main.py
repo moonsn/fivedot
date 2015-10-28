@@ -168,6 +168,9 @@ def draw_win(color):
 #draw_grid(30, '#AED6F1')
 #draw_grid2(30, '#E5E8E8')
 
+
+
+
 # for network
 ser = moonsn_netlib.Server(listen_PORT, draw_other)
 ser.start()

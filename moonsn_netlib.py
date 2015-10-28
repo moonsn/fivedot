@@ -62,6 +62,10 @@ class Client(threading.Thread):
         def stop(self):
             self.sock.close()
 
+        def change_ip(self, ip, port):
+            self.ADDR = (ip, port)
+            print "change :",self.ADDR
+
 def main():
     ip = ""
     ser = Server()

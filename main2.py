@@ -5,8 +5,8 @@ import fivemap
 import moonsn_netlib
 import json
 
-listen_PORT = 50000
-sendto_PORT = 50001
+listen_PORT = 50001
+sendto_PORT = 50000
 sendto_IP = '127.0.0.1'
 MY_COLOR = None
 COLOR_B = "#34495E"
@@ -38,8 +38,8 @@ class Application(tk.Frame):
         self.parent.config(menu=menu_bar)
 
         fileMenu = tk.Menu(menu_bar)
-        fileMenu.add_command(label="change ip", command=self.create_window)
-        menu_bar.add_cascade(label="setting", menu=fileMenu)
+        fileMenu.add_command(label="exit", command=self.onExit)
+        menu_bar.add_cascade(label="file", menu=fileMenu)
         self.draw_rect()
 
     def onExit(self):
@@ -90,7 +90,7 @@ class Application(tk.Frame):
         res = self.mp.check()
         if res != None:
             print "%s win !!!!!!!!!!!!!!!!" % NOW_COLOR
-            self.win(NOW_COLOR)
+            #draw_win(NOW_COLOR)
 
 
     def draw_dot(self, x, y):
@@ -106,27 +106,6 @@ class Application(tk.Frame):
             NOW_COLOR = "B"
             return COLOR_B
 
-    def create_window(self):
-        global change_ip
-        t = tk.Toplevel(self)
-        t.wm_title("Change others ip")
-        l = tk.Label(t, text="请输入对方ip")
-        en = tk.Entry(t, bd=5)
-        l.pack(side="top", fill="both", expand=True, padx=100)
-        en.pack(side="top", fill="both", expand=True)
-        btn = tk.Button(t,text="Change It!", command=lambda: change_ip(en.get()))
-        btn.pack()
-
-    def win(self, color):
-        t = tk.Toplevel(self)
-        t.wm_title("GAME END!")
-        l = tk.Label(t, text="\"%s\" win the game!" % color)
-        l.pack(side="top", fill="both", expand=True, padx=100, pady=100)
-
-def change_ip(str):
-    global cli
-    cli.change_ip(str, sendto_PORT)
-
 def draw_other(self, str):
     global NOW_COLOR
     str = json.loads(str)
@@ -138,12 +117,11 @@ def draw_other(self, str):
     res = self.mp.check()
     if res != None:
         print "%s win !!!!!!!!!!!!!!!!" % NOW_COLOR
-        self.win(NOW_COLOR)
+        #self.draw_win(NOW_COLOR)
 
 def hello(str):
     global app
     draw_other(app, str)
-
 
 # for network
 ser = moonsn_netlib.Server(listen_PORT, hello)

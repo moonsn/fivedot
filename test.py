@@ -5,7 +5,7 @@ import fivemap
 import moonsn_netlib
 import json
 
-listen_PORT = 50000
+listen_PORT = 50001
 sendto_PORT = 50000
 sendto_IP = '127.0.0.1'
 MY_COLOR = None
@@ -129,25 +129,22 @@ def change_ip(str):
     global cli
     cli.change_ip(str, sendto_PORT)
 
-def draw_other(self, msg):
+def draw_other(self, str):
     global NOW_COLOR
-    msg = json.loads(msg)
-    row = msg[0]['row']
-    col = msg[0]['col']
-    self.mp.print_map()
+    str = json.loads(str)
+    row = str[0]['row']
+    col = str[0]['col']
     self.draw_dot((col)*30, (row)*30)
     self.mp.setPos(row-1, col-1, NOW_COLOR)
 
-    self.mp.print_map()
     res = self.mp.check()
     if res != None:
         print "%s win !!!!!!!!!!!!!!!!" % NOW_COLOR
         self.win(NOW_COLOR)
-        print "++++++++++++++++++"
 
-def hello(msg):
+def hello(str):
     global app
-    draw_other(app, msg)
+    draw_other(app, str)
 
 
 # for network

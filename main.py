@@ -9,7 +9,7 @@ import moonsn_netlib
 
 listen_PORT = 50000
 sendto_PORT = 50000
-sendto_IP = '192.168.1.111'
+sendto_IP = '192.168.1.121'
 MY_COLOR = None
 COLOR_B = "#34495E"
 COLOR_W = "#D4E6F1"
@@ -30,8 +30,10 @@ root.title("五点")
 
 # add menus
 def add_menus():
+    print "fuck!"
     menu = tk.Menu(root)
     root.config(menu=menu)
+    print "fuck!"
     menu.add_cascade(label="设置对手ip", command=hello)
     menu.add_cascade(label="new", command=new_game)
 
@@ -60,7 +62,7 @@ def add_Canvas():
     # base rectangle
     w.create_rectangle(0,0, main_width, main_height, fill="#FDFEFE")
     w.bind('<Button>', doit)
-    w.pack()
+    w.pack(fill="both")
     draw_grid(30, '#AED6F1')
 
 # function for draw grid
@@ -185,8 +187,10 @@ def new_game():
 
 #root.mainloop()
 def main():
+    add_menus()
+
+
     add_Canvas()
-    new_game()
     root.mainloop()
 
 

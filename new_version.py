@@ -6,7 +6,7 @@ import moonsn_netlib
 import json
 
 listen_PORT = 50000
-sendto_PORT = 50001
+sendto_PORT = 50000
 sendto_IP = '127.0.0.1'
 MY_COLOR = None
 COLOR_B = "#17202A"

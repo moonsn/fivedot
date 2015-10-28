@@ -9,8 +9,8 @@ listen_PORT = 50000
 sendto_PORT = 50001
 sendto_IP = '127.0.0.1'
 MY_COLOR = None
-COLOR_B = "#34495E"
-COLOR_W = "#D4E6F1"
+COLOR_B = "#17202A"
+COLOR_W = "#FDFEFE"
 NOW_COLOR = "B"
 
 UNIT = 30
@@ -33,7 +33,7 @@ class Application(tk.Frame):
 
 
     def initUI(self):
-        self.parent.title("simple menu")
+        self.parent.title("Five DOT")
         menu_bar = tk.Menu(self.parent)
         self.parent.config(menu=menu_bar)
 
@@ -47,7 +47,8 @@ class Application(tk.Frame):
 
     def draw_rect(self):
         self.canvas = tk.Canvas()
-        self.canvas.create_rectangle(0, 0, MAIN_WIDTH, MAIN_HEIGHT, fill="#FDFEFE")
+        self.canvas.create_rectangle(0, 0, MAIN_WIDTH, MAIN_HEIGHT, fill="#AED6F1")
+        self.canvas.create_rectangle(0+5, 0+5, MAIN_WIDTH-5, MAIN_HEIGHT-5, fill="#FDFEFE")
         for i in range(UNIT, MAIN_WIDTH, UNIT):
             self.canvas.create_line(i, 0, i, MAIN_HEIGHT, fill="#AED6F1")
         for i in range(UNIT, MAIN_HEIGHT, UNIT):
@@ -112,8 +113,9 @@ class Application(tk.Frame):
         t.wm_title("Change others ip")
         l = tk.Label(t, text="请输入对方ip")
         en = tk.Entry(t, bd=5)
+        en.insert(0,sendto_IP)
         l.pack(side="top", fill="both", expand=True, padx=100)
-        en.pack(side="top", fill="both", expand=True)
+        en.pack(side="top", fill="both", expand=True, padx=100)
         btn = tk.Button(t,text="Change It!", command=lambda: change_ip(en.get()))
         btn.pack()
 
